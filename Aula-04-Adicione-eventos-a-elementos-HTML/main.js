@@ -1,4 +1,6 @@
 const form = document.getElementById('form-deposito')
+const nomeBeneficiario = document.getElementById('nome-beneficiario')
+let formEValido = false
 
 // Função para validar o nome e sobrenome usano o método split
 function validaNome(nomeCompleto) {
@@ -9,34 +11,46 @@ function validaNome(nomeCompleto) {
 form.addEventListener('submit', function(e) {
     // Variável para controlar se o formulário é válido
     // e.preventDefault() impede o envio do formulário automaticamente
-    let formEValido = false
     e.preventDefault() // Impede o envio do formulário
 
     // Obtém os valores dos campos do formulário
-    const nomeBeneficiario = document.getElementById('nome-beneficiario')
     const numeroContaBeneficiario = document.getElementById('numero-conta')
     const valorDeposito = document.getElementById('valor-deposito')
 
     // Mostra uma mensagem de sucesso com os valores inseridos
-    const mensagemDeSucesso = `Montante de: ${valorDeposito.value}, depositado para o cliente: ${nomeBeneficiario.value}- Conta: ${numeroContaBeneficiario.value}.`
+    const mensagemDeSucesso = `Montante de: <b>${valorDeposito.value}</b>, depositado para o cliente: <b>${nomeBeneficiario.value}</b> - Conta: <b>${numeroContaBeneficiario.value}</b>.`
 
     // Valida o nome do beneficiário, usando a função validaNome e exibe uma mensagem de sucesso ou erro
     formEValido = validaNome(nomeBeneficiario.value)
 
     // Se o formulário for válido, exibe a mensagem de sucesso
     if (formEValido) {
-        alert(mensagemDeSucesso)
+        let mensagem = document.querySelector('.sucess-mansage')
+        mensagem.innerHTML = mensagemDeSucesso
+        mensagem.style.display = 'block'
 
         nomeBeneficiario.value = ''
         numeroContaBeneficiario.value = ''
         valorDeposito.value = ''
     } 
-    
     // Se o formulário não for válido, exibe uma mensagem de erro
     else {
-        alert('O nome não está completo. Por favor, insira o nome e sobrenome.')
+        nomeBeneficiario.style.border = '1px red solid'
+        document.querySelector('.error-message').style.display = 'block'
     }
 })
 
-// Exibe os formulários no console
-console.log(form)
+nomeBeneficiario.addEventListener('keyup', function(e) {
+    console.log(e.target.value)
+
+    if (!validaNome) {
+        nomeBeneficiario.classList.add('error')
+        //nomeBeneficiario.style.border = '1px red solid'
+        document.querySelector('.error-message').style.display = 'block'
+    } else {
+        nomeBeneficiario.classList.remove('error')
+        document.querySelector('.error-message').style.display = 'none'
+    }
+})
+
+document
