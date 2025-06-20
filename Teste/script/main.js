@@ -38,6 +38,9 @@ form.addEventListener("submit", function(e) {
     } else {
         erro.innerHTML = ''
         nomeBeneficiario.style.border = ''
+        nomeBeneficiario = ''
+        email = ''
+        senha = ''
         alert('Login realizado com Sucesso')
         alert(`Seja bem-vindo, ${nomeBeneficiario.value}. Muito bom ter você aqui novamente!`)
     }
